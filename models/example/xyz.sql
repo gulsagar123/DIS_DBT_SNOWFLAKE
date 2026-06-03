@@ -1,0 +1,1 @@
+select 'harshala' as first_name,'kadam' as last_name
