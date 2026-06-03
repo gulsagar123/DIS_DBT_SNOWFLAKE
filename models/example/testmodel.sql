@@ -1,1 +1,0 @@
-select 'Sagar' as first_name,'Gulghane' as last_name
