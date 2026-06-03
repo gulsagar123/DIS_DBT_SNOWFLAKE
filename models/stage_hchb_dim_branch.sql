@@ -1,7 +1,7 @@
 {{
     config(
-        schema               = 'silver_core',
-        alias                = 'STAGE_DIM_BRANCH',
+        schema               = 'silver_core_dbt',
+        alias                = 'STAGE_HCHB_DIM_BRANCH',
         materialized         = 'incremental',
         incremental_strategy = 'delete+insert',
         unique_key           = 'BRANCH_CODE',
@@ -28,8 +28,10 @@ WITH source AS (
         branch_active,
         branch_branchgl,
         UPDATED_DATE,
-        INSERTED_DATE
-    FROM {{ source('silver_staging', 'BRANCHES_HCHB_CLEANSED') }}
+        INSERTED_DATE,
+        cdc_ts,
+        cdc_op
+    FROM {{ source('BRONZE_HCHB', 'branches') }}
 
     {% if is_incremental() %}
         WHERE UPDATED_DATE  > (SELECT MAX(LOADED_AT) FROM {{ this }})
@@ -60,7 +62,9 @@ transformed AS (
         branch_active     AS IS_ACTIVE,
         branch_branchgl   AS BRANCH_GL_NUMBER,
         CURRENT_TIMESTAMP AS LOADED_AT,
-        UPDATED_DATE      AS SOURCE_LAST_UPDATE
+        UPDATED_DATE      AS SOURCE_LAST_UPDATE,
+         cdc_ts AS CDC_TIMESTAMP,
+        cdc_op AS CDC_OPRATION
     FROM source
 
 )
