@@ -3,7 +3,7 @@ target/
 dbt_packages/
 logs/
 
-profiles.yaml
+profiles.yml
 
 
 
