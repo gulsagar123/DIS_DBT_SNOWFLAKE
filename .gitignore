@@ -1,9 +1,208 @@
+# ============================================================
+# DATA INGESTION + DBT PROJECT — .gitignore
+# ============================================================
 
+
+# ------------------------------------------------------------
+# SECRETS & CREDENTIALS
+# ------------------------------------------------------------
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+service_account*.json
+credentials*.json
+secrets/
+config/secrets/
+
+
+# ------------------------------------------------------------
+# DBT
+# ------------------------------------------------------------
+
+# dbt profiles (contains DB credentials — NEVER commit)
+profiles.yml
+profiles.yaml
+
+
+# dbt compiled SQL and run artifacts
+dbt/target/
 target/
+
+# dbt packages (installed via dbt deps)
+dbt/dbt_packages/
 dbt_packages/
+
+# dbt logs
+dbt/logs/
 logs/
 
-profiles.yml
+# dbt partial parse cache
+dbt/.partial_parse.msgpack
+.partial_parse.msgpack
+
+# dbt state / defer artifacts
+dbt/state/
+state/
+
+# dbt seeds that may contain sensitive data (optional — remove if seeds are safe to commit)
+# dbt/seeds/*.csv
 
 
+# ------------------------------------------------------------
+# PYTHON
+# ------------------------------------------------------------
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+*.egg
+*.egg-info/
+dist/
+build/
+eggs/
+parts/
+var/
+sdist/
+develop-eggs/
+.installed.cfg
+lib/
+lib64/
 
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+.env/
+.virtualenv/
+
+# Jupyter notebooks checkpoints
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+
+# pytest / coverage
+.pytest_cache/
+.coverage
+coverage.xml
+htmlcov/
+.tox/
+.nox/
+
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+
+# ------------------------------------------------------------
+# DATA FILES (raw/intermediate — usually too large for git)
+# ------------------------------------------------------------
+*.csv
+!dbt/seeds/*.csv        # Keep dbt seed files if intentional
+*.tsv
+*.parquet
+*.orc
+*.avro
+*.json.gz
+*.ndjson
+data/raw/
+data/processed/
+data/interim/
+data/external/
+warehouse/
+lakehouse/
+
+
+# ------------------------------------------------------------
+# AIRFLOW / ORCHESTRATION
+# ------------------------------------------------------------
+airflow/logs/
+airflow/plugins/__pycache__/
+airflow.cfg
+airflow.db
+airflow-webserver.pid
+standalone_admin_password.txt
+unittests.cfg
+
+
+# ------------------------------------------------------------
+# DOCKER
+# ------------------------------------------------------------
+.dockerignore
+docker-compose.override.yml
+
+
+# ------------------------------------------------------------
+# TERRAFORM / INFRA (if managing cloud infra in repo)
+# ------------------------------------------------------------
+**/.terraform/
+*.tfstate
+*.tfstate.*
+*.tfvars
+!*.tfvars.example
+crash.log
+override.tf
+override.tf.json
+
+
+# ------------------------------------------------------------
+# IDE & EDITORS
+# ------------------------------------------------------------
+.vscode/
+!.vscode/extensions.json
+!.vscode/settings.json.example
+.idea/
+*.sublime-project
+*.sublime-workspace
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+
+# ------------------------------------------------------------
+# OS
+# ------------------------------------------------------------
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+._*
+Desktop.ini
+$RECYCLE.BIN/
+ehthumbs.db
+
+
+# ------------------------------------------------------------
+# LOGS & TEMP FILES
+# ------------------------------------------------------------
+*.log
+*.tmp
+*.temp
+*.bak
+*.orig
+tmp/
+temp/
+
+
+# ------------------------------------------------------------
+# PACKAGE MANAGERS
+# ------------------------------------------------------------
+node_modules/
+.npm
+package-lock.json     # Remove this line if you want to lock Node deps
+yarn.lock             # Remove this line if you use Yarn lockfiles intentionally
+
+
+# ------------------------------------------------------------
+# SPARK / HADOOP (if applicable)
+# ------------------------------------------------------------
+spark-warehouse/
+derby.log
+metastore_db/
