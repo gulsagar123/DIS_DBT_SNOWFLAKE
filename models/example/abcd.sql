@@ -1,0 +1,1 @@
+select 'mohit' as first_name,'ingavale' as last_name
