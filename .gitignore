@@ -4,6 +4,8 @@ dbt_packages/
 logs/
 
 profiles.yml
+profiles.yaml
 
 
-
+.profiles.yml
+.profiles.yaml
