@@ -1,0 +1,17 @@
+
+target/
+dbt_packages/
+logs/
+
+profiles.yaml
+dbt_project.yaml
+
+
+analyses/
+macros/
+seeds/
+snapshots/
+target/
+tests/
+
+
