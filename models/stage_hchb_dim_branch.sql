@@ -1,8 +1,7 @@
 {{
     config(
         schema               = 'silver_core_dbt',
-        alias                = 'STAGE_HCHB_DIM_BRANCH',
-        materialized         = 'incremental',
+        materialized         = 'table',
         incremental_strategy = 'delete+insert',
         unique_key           = 'BRANCH_CODE',
         on_schema_change     = 'sync_all_columns',
