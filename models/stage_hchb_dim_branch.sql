@@ -68,4 +68,6 @@ transformed AS (
 
 )
 
+
+
 SELECT * FROM transformed
