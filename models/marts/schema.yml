@@ -1,0 +1,297 @@
+version: 2
+
+models:
+
+  - name: dim_discipline
+    description: Silver Discipline. Schema SILVER_DBT | Table DIM_DISCIPLINE
+    columns:
+      - name: DISCIPLINE_KEY
+        data_tests: [not_null, unique]
+      - name: SOURCE_SYSTEM_ID
+        data_tests: [not_null]
+      - name: SYSTEM_CODE
+        data_tests: [not_null]
+      - name: CODE
+        data_tests: [not_null]
+      - name: ID
+        data_tests: [not_null]
+      - name: DESCRIPTION
+      - name: IS_ACTIVE
+      - name: RATE
+      - name: REVENUECODE
+      - name: CDC_OP
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ['INSERT', 'UPDATE']
+      - name: CDC_TS
+        data_tests: [not_null]
+      - name: INSERTED_DATE
+        data_tests: [not_null]
+      - name: INSERTED_BY
+        data_tests: [not_null]
+      - name: UPDATED_DATE
+        data_tests: [not_null]
+      - name: UPDATED_BY
+        data_tests: [not_null]
+
+  - name: dim_facility
+    description: Silver Facility. Schema SILVER_DBT | Table DIM_FACILITY
+    columns:
+      - name: FACILITY_KEY
+        data_tests: [not_null, unique]
+      - name: SOURCE_SYSTEM_ID
+        data_tests: [not_null]
+      - name: SYSTEM_CODE
+        data_tests: [not_null]
+      - name: FACILITY_ID
+        data_tests: [not_null]
+      - name: FACILITY_NAME
+        data_tests: [not_null]
+      - name: FACILITY_TYPE
+      - name: NPI
+      - name: IS_ACTIVE
+      - name: ADDRESS
+      - name: CITY
+      - name: STATE_CODE
+      - name: ZIP
+      - name: WORK_PHONE
+      - name: CDC_OP
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ['INSERT', 'UPDATE']
+      - name: CDC_TS
+        data_tests: [not_null]
+      - name: INSERTED_DATE
+        data_tests: [not_null]
+      - name: INSERTED_BY
+        data_tests: [not_null]
+      - name: UPDATED_DATE
+        data_tests: [not_null]
+      - name: UPDATED_BY
+        data_tests: [not_null]
+
+  - name: dim_payor
+    description: Silver Payor. Schema SILVER_DBT | Table DIM_PAYOR
+    columns:
+      - name: PAYOR_KEY
+        data_tests: [not_null, unique]
+      - name: SOURCE_SYSTEM_ID
+        data_tests: [not_null]
+      - name: SYSTEM_CODE
+        data_tests: [not_null]
+      - name: PAYOR_ID
+        data_tests: [not_null]
+      - name: PAYOR_NAME
+        data_tests: [not_null]
+      - name: PAYOR_TYPE
+      - name: IS_ACTIVE
+      - name: CDC_OP
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ['INSERT', 'UPDATE']
+      - name: CDC_TS
+        data_tests: [not_null]
+      - name: INSERTED_DATE
+        data_tests: [not_null]
+      - name: INSERTED_BY
+        data_tests: [not_null]
+      - name: UPDATED_DATE
+        data_tests: [not_null]
+      - name: UPDATED_BY
+        data_tests: [not_null]
+
+  - name: dim_referral_source
+    description: Silver Referral Source. Schema SILVER_DBT | Table DIM_REFERRAL_SOURCE
+    columns:
+      - name: REFERRAL_SOURCE_KEY
+        data_tests: [not_null, unique]
+      - name: SOURCE_SYSTEM_ID
+        data_tests: [not_null]
+      - name: SYSTEM_CODE
+        data_tests: [not_null]
+      - name: REFERRAL_SOURCE_ID
+        data_tests: [not_null]
+      - name: SOURCE_NAME
+        data_tests: [not_null]
+      - name: IS_ACTIVE
+      - name: CDC_OP
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ['INSERT', 'UPDATE']
+      - name: CDC_TS
+        data_tests: [not_null]
+      - name: INSERTED_DATE
+        data_tests: [not_null]
+      - name: INSERTED_BY
+        data_tests: [not_null]
+      - name: UPDATED_DATE
+        data_tests: [not_null]
+      - name: UPDATED_BY
+        data_tests: [not_null]
+
+  - name: dim_referring_physician
+    description: Silver Referring Physician. Schema SILVER_DBT | Table DIM_REFERRING_PHYSICIAN
+    columns:
+      - name: REFERRING_PHYSICIAN_KEY
+        data_tests: [not_null, unique]
+      - name: SOURCE_SYSTEM_ID
+        data_tests: [not_null]
+      - name: SYSTEM_CODE
+        data_tests: [not_null]
+      - name: PHYSICIAN_ID
+        data_tests: [not_null]
+      - name: PHYSICIAN_OFFICE
+      - name: PHYSICIAN_GROUP
+      - name: PHYSICIAN_FIRST_NAME
+      - name: PHYSICIAN_LAST_NAME
+      - name: ADDRESS_LINE_1
+      - name: ADDRESS_LINE_2
+      - name: CITY
+      - name: COUNTY
+      - name: STATE
+      - name: ZIP_CODE
+      - name: IS_ACTIVE
+      - name: CDC_OP
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ['INSERT', 'UPDATE']
+      - name: CDC_TS
+        data_tests: [not_null]
+      - name: INSERTED_DATE
+        data_tests: [not_null]
+      - name: INSERTED_BY
+        data_tests: [not_null]
+      - name: UPDATED_DATE
+        data_tests: [not_null]
+      - name: UPDATED_BY
+        data_tests: [not_null]
+
+  - name: dim_date
+    description: >
+      Silver Date dimension. Schema SILVER_DBT | Table DIM_DATE.
+      Covers 2020-01-01 to 2030-12-31. Fiscal year Oct-Sep.
+      Full refresh table - no staging needed.
+    columns:
+      - name: DATE_KEY
+        description: Date key in YYYYMMDD format
+        data_tests: [not_null, unique]
+      - name: CALENDAR_DATE
+        description: Actual calendar date
+        data_tests: [not_null, unique]
+      - name: YEAR
+        data_tests: [not_null]
+      - name: FIRST_DAY_OF_YEAR
+      - name: LAST_DAY_OF_YEAR
+      - name: PREVIOUS_YEAR_FIRST_DAY
+      - name: PREVIOUS_YEAR_LAST_DAY
+      - name: ISO_YEAR
+      - name: FISCAL_YEAR
+        data_tests: [not_null]
+      - name: FISCAL_YEAR_LABEL
+      - name: FIRST_DAY_OF_FISCAL_YEAR
+      - name: LAST_DAY_OF_FISCAL_YEAR
+      - name: FISCAL_QUARTER
+        data_tests: [not_null]
+      - name: FISCAL_QUARTER_NAME
+      - name: FISCAL_QUARTER_YEAR
+      - name: FISCAL_MONTH
+        data_tests: [not_null]
+      - name: FISCAL_WEEK_NUMBER
+      - name: FISCAL_WEEK_LABEL
+      - name: QUARTER
+        data_tests: [not_null]
+      - name: QUARTER_NAME
+      - name: QUARTER_YEAR
+      - name: FIRST_DAY_OF_QUARTER
+      - name: LAST_DAY_OF_QUARTER
+      - name: PREVIOUS_QUARTER_FIRST_DAY
+      - name: PREVIOUS_QUARTER_LAST_DAY
+      - name: MONTH
+        data_tests: [not_null]
+      - name: MONTH_NAME
+      - name: YEAR_MONTH_DESC
+      - name: YEAR_MONTH
+      - name: FIRST_DAY_OF_MONTH
+      - name: LAST_DAY_OF_MONTH
+      - name: PREVIOUS_MONTH_FIRST_DAY
+      - name: PREVIOUS_MONTH_LAST_DAY
+      - name: DAYS_IN_MONTH
+      - name: WEEK_OF_YEAR
+      - name: WEEK_START
+      - name: WEEK_END
+      - name: WEEK_ASSIGNED_FISCAL_YEAR
+      - name: WEEK_ASSIGNED_FISCAL_YEAR_SORT
+      - name: WEEK_ASSIGNED_FISCAL_MONTH
+      - name: WEEK_ASSIGNED_FISCAL_QUARTER
+      - name: WEEK_ASSIGNED_YEAR
+      - name: WEEK_ASSIGNED_MONTH
+      - name: WEEK_ASSIGNED_QUARTER
+      - name: WEEK_ASSIGNED_QUARTER_SORT
+      - name: WEEK_ASSIGNED_YEAR_MONTH
+      - name: DAY_OF_YEAR
+        data_tests: [not_null]
+      - name: DAY_OF_MONTH
+        data_tests: [not_null]
+      - name: DAY_OF_WEEK
+        data_tests: [not_null]
+      - name: DAY_NAME
+        data_tests: [not_null]
+      - name: ISO_WEEK
+      - name: ISO_DAY
+      - name: WEEKEND_FLAG
+        data_tests: [not_null]
+      - name: ACC_HOLIDAY_OBSERVED_FLAG
+      - name: IS_CURRENT_YEAR
+      - name: IS_CURRENT_QUARTER
+      - name: IS_CURRENT_MONTH
+      - name: IS_TODAY
+      - name: IS_CURRENT_FISCAL_YEAR
+      - name: IS_CURRENT_FISCAL_QUARTER
+      - name: IS_CURRENT_FISCAL_MONTH
+      - name: ETL_INSERTED_DATE
+        data_tests: [not_null]
+      - name: ETL_INSERTED_BY
+        data_tests: [not_null]
+      - name: ETL_UPDATED_DATE
+        data_tests: [not_null]
+      - name: ETL_UPDATED_BY
+        data_tests: [not_null]
+
+  - name: dim_source_system
+    description: >
+      Silver Source System dimension. Schema SILVER_DBT | Table DIM_SOURCE_SYSTEM.
+      Static lookup table - no staging needed.
+    columns:
+      - name: SOURCE_SYSTEM_ID
+        description: Unique identifier for source system
+        data_tests: [not_null, unique]
+      - name: SOURCE_SYSTEM_NAME
+        description: Full name of the source system
+        data_tests: [not_null]
+      - name: SYSTEM_CODE
+        description: Short code for source system
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ['HCHB']
+      - name: IS_ACTIVE
+        data_tests: [not_null]
+      - name: INSERTED_DATE
+        data_tests: [not_null]
+      - name: INSERTED_BY
+        data_tests: [not_null]
+      - name: UPDATED_DATE
+        data_tests: [not_null]
+      - name: UPDATED_BY
+        data_tests: [not_null]

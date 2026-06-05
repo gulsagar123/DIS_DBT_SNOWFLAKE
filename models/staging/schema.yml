@@ -1,0 +1,142 @@
+version: 2
+
+models:
+
+  - name: stg_dim_discipline
+    description: Staging for Discipline. Schema SILVER_CORE_DBT | Table STAGE_DIM_DISCIPLINE
+    columns:
+      - name: SOURCE_SYSTEM_ID
+        data_tests: [not_null]
+      - name: SYSTEM_CODE
+        data_tests: [not_null]
+      - name: CODE
+        data_tests: [not_null]
+      - name: ID
+        data_tests: [not_null]
+      - name: DESCRIPTION
+        data_tests: [not_null]
+      - name: IS_ACTIVE
+      - name: RATE
+      - name: REVENUECODE
+      - name: LOADED_AT
+        data_tests: [not_null]
+      - name: SOURCE_LAST_UPDATE
+      - name: CDC_OP
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ['INSERT', 'UPDATE', 'DELETE']
+      - name: CDC_TS
+        data_tests: [not_null]
+
+  - name: stg_dim_facility
+    description: Staging for Facility. Schema SILVER_CORE_DBT | Table STAGE_DIM_FACILITY
+    columns:
+      - name: SOURCE_SYSTEM_ID
+        data_tests: [not_null]
+      - name: SYSTEM_CODE
+        data_tests: [not_null]
+      - name: FACILITY_ID
+        data_tests: [not_null]
+      - name: FACILITY_NAME
+        data_tests: [not_null]
+      - name: FACILITY_TYPE
+      - name: NPI
+      - name: IS_ACTIVE
+      - name: ADDRESS
+      - name: CITY
+      - name: STATE_CODE
+      - name: ZIP
+      - name: WORK_PHONE
+      - name: LOADED_AT
+        data_tests: [not_null]
+      - name: SOURCE_LAST_UPDATE
+      - name: CDC_OP
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ['INSERT', 'UPDATE', 'DELETE']
+      - name: CDC_TS
+        data_tests: [not_null]
+
+  - name: stg_dim_payor
+    description: Staging for Payor. Schema SILVER_CORE_DBT | Table STAGE_DIM_PAYOR
+    columns:
+      - name: SOURCE_SYSTEM_ID
+        data_tests: [not_null]
+      - name: SYSTEM_CODE
+        data_tests: [not_null]
+      - name: PAYOR_ID
+        data_tests: [not_null]
+      - name: PAYOR_NAME
+        data_tests: [not_null]
+      - name: PAYOR_TYPE
+      - name: IS_ACTIVE
+      - name: LOADED_AT
+        data_tests: [not_null]
+      - name: SOURCE_LAST_UPDATE
+      - name: CDC_OP
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ['INSERT', 'UPDATE', 'DELETE']
+      - name: CDC_TS
+        data_tests: [not_null]
+
+  - name: stg_dim_referral_source
+    description: Staging for Referral Source. Schema SILVER_CORE_DBT | Table STAGE_DIM_REFERRAL_SOURCE
+    columns:
+      - name: SOURCE_SYSTEM_ID
+        data_tests: [not_null]
+      - name: SYSTEM_CODE
+        data_tests: [not_null]
+      - name: REFERRAL_SOURCE_ID
+        data_tests: [not_null]
+      - name: SOURCE_NAME
+        data_tests: [not_null]
+      - name: IS_ACTIVE
+      - name: LOADED_AT
+        data_tests: [not_null]
+      - name: SOURCE_LAST_UPDATE
+      - name: CDC_OP
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ['INSERT', 'UPDATE', 'DELETE']
+      - name: CDC_TS
+        data_tests: [not_null]
+
+  - name: stg_dim_referring_physician
+    description: Staging for Referring Physician. Schema SILVER_CORE_DBT | Table STAGE_DIM_REFERRING_PHYSICIAN
+    columns:
+      - name: SOURCE_SYSTEM_ID
+        data_tests: [not_null]
+      - name: SYSTEM_CODE
+        data_tests: [not_null]
+      - name: PHYSICIAN_ID
+        data_tests: [not_null]
+      - name: PHYSICIAN_OFFICE
+      - name: PHYSICIAN_GROUP
+      - name: PHYSICIAN_FIRST_NAME
+      - name: PHYSICIAN_LAST_NAME
+      - name: ADDRESS_LINE_1
+      - name: ADDRESS_LINE_2
+      - name: CITY
+      - name: COUNTY
+      - name: STATE
+      - name: ZIP_CODE
+      - name: LOADED_AT
+        data_tests: [not_null]
+      - name: SOURCE_LAST_UPDATE
+      - name: CDC_OP
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ['INSERT', 'UPDATE', 'DELETE']
+      - name: CDC_TS
+        data_tests: [not_null]
