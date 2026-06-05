@@ -1,7 +1,7 @@
 sources:
-  - name: BRONZE_STAGE
+  - name: BRONZE_HCHB
     database: DATA_INGESTION_SOLUTION  
-    schema: BRONZE_STAGE
+    schema: BRONZE_HCHB
     tables:
       - name: activities
       - name: agencies_servicelines
