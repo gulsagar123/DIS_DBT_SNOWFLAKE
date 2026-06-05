@@ -2,11 +2,19 @@
 # Name your project! Project names should contain only lowercase characters
 # and underscores. A good package name should reflect your organization's
 # name or the intended use of these models
+<<<<<<< HEAD
 name: 'data_ingestion_dbt'
 version: '1.0.0'
 
 # This setting configures which "profile" dbt uses for this project.
 profile: 'data_ingestion_dbt'
+=======
+name: 'DIS_DBT_SNOWFLAKE'
+version: '1.0.0'
+
+# This setting configures which "profile" dbt uses for this project.
+profile: 'DIS_DBT_SNOWFLAKE'
+>>>>>>> 3548cc720b2a5d1be7cdcce28f7578707ad966e9
 
 # These configurations specify where dbt should look for different types of files.
 # The `model-paths` config, for example, states that models in this project can be
@@ -30,6 +38,12 @@ clean-targets:         # directories to be removed by `dbt clean`
 # directory as views. These settings can be overridden in the individual model
 # files using the `{{ config(...) }}` macro.
 models:
+<<<<<<< HEAD
   data_ingestion_dbt:
     silver:
       +materialized: incremental
+=======
+  DIS_DBT_SNOWFLAKE:
+    # Config indicated by + and applies to all files under models/example/
+    
+>>>>>>> 3548cc720b2a5d1be7cdcce28f7578707ad966e9
