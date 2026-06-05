@@ -1,0 +1,40 @@
+{# Automated Python Compilation for Pipeline: CLIENT_ADDRESS_PL #}
+{{
+    config(
+        materialized='incremental',
+        unique_key='CA_ID',
+        incremental_strategy='merge',
+        alias='CLIENT_ADDRESS_HCHB_CLEANSED'
+    )
+}}
+
+SELECT
+    NULLIF(TRIM(TRIM("CA_COUNTY")), '') AS "CA_COUNTY",
+    TRIM(REGEXP_REPLACE(REGEXP_REPLACE(NULLIF(TRIM(TRIM("CA_ISCLAIMADDRESS")), ''), '[^A-Za-z0-9 ,.#/()_-]+', ''), '[[:space:]]+', ' ')) AS "CA_ISCLAIMADDRESS",
+    INITCAP(REGEXP_REPLACE(NULLIF(TRIM(TRIM("CA_CITY")), ''), '[^A-Za-z ]+', '')) AS "CA_CITY",
+    NULLIF(REGEXP_REPLACE(IFF(LENGTH(REGEXP_REPLACE(NULLIF(TRIM(TRIM("CA_PHONE")), ''), '[^0-9]+', '')) IN (10), REGEXP_REPLACE(NULLIF(TRIM(TRIM("CA_PHONE")), ''), '[^0-9]+', ''), NULL), '^(0+|1+|2+|3+|4+|5+|6+|7+|8+|9+)$', ''), '') AS "CA_PHONE",
+    NULLIF(TRIM(TRIM("CA_PAID")), '') AS "CA_PAID",
+    CASE 
+     WHEN NULLIF(TRIM(TRIM("CA_ZIP")), '') IS NULL THEN NULL
+     ELSE REGEXP_REPLACE(NULLIF(TRIM(TRIM("CA_ZIP")), ''), '[^0-9]+', '')
+ END AS "CA_ZIP",
+    TRY_TO_TIMESTAMP(NULLIF(TRIM(TRIM("CDC_TS")), '')) AS "CDC_TS",
+    TRIM(REGEXP_REPLACE(REGEXP_REPLACE(NULLIF(TRIM(TRIM("CA_ISCURRENTADDRESS")), ''), '[^A-Za-z0-9 ,.#/()_-]+', ''), '[[:space:]]+', ' ')) AS "CA_ISCURRENTADDRESS",
+    NULLIF(TRIM(TRIM("CA_ID")), '') AS "CA_ID",
+    NULLIF(REGEXP_REPLACE(IFF(LENGTH(REGEXP_REPLACE(NULLIF(TRIM(TRIM("CA_WPHONE")), ''), '[^0-9]+', '')) IN (10), REGEXP_REPLACE(NULLIF(TRIM(TRIM("CA_WPHONE")), ''), '[^0-9]+', ''), NULL), '^(0+|1+|2+|3+|4+|5+|6+|7+|8+|9+)$', ''), '') AS "CA_WPHONE",
+    TRIM(REGEXP_REPLACE(REGEXP_REPLACE(NULLIF(TRIM(TRIM("CA_ADDRESS1")), ''), '[^A-Za-z0-9 ,.#/()_-]+', ''), '[[:space:]]+', ' ')) AS "CA_ADDRESS1",
+    NULLIF(TRIM(TRIM("CDC_OP")), '') AS "CDC_OP",
+    NULLIF(TRIM(TRIM("CA_DESCRIPTION")), '') AS "CA_DESCRIPTION",
+    NULLIF(TRIM(TRIM("CA_ISSERVICELOCATION")), '') AS "CA_ISSERVICELOCATION",
+    INITCAP(REGEXP_REPLACE(NULLIF(TRIM(TRIM("CA_STATE")), ''), '[^A-Za-z ]+', '')) AS "CA_STATE",
+    TRIM(REGEXP_REPLACE(REGEXP_REPLACE(NULLIF(TRIM(TRIM("CA_ADDRESS2")), ''), '[^A-Za-z0-9 ,.#/()_-]+', ''), '[[:space:]]+', ' ')) AS "CA_ADDRESS2",
+    NULLIF(REGEXP_REPLACE(IFF(LENGTH(REGEXP_REPLACE(NULLIF(TRIM(TRIM("CA_APHONE")), ''), '[^0-9]+', '')) IN (10), REGEXP_REPLACE(NULLIF(TRIM(TRIM("CA_APHONE")), ''), '[^0-9]+', ''), NULL), '^(0+|1+|2+|3+|4+|5+|6+|7+|8+|9+)$', ''), '') AS "CA_APHONE",
+    NULLIF(TRIM("INSERTED_DATE"), '') AS "INSERTED_DATE",
+    NULLIF(TRIM(TRIM("INSERTED_BY")), '') AS "INSERTED_BY",
+    NULLIF(TRIM("UPDATED_DATE"), '') AS "UPDATED_DATE"
+
+FROM DATA_INGESTION_SOLUTION.BRONZE_HCHB.CLIENT_ADDRESS
+
+{% if is_incremental() %}
+  WHERE "UPDATED_DATE" > DATEADD(minute, -5, (SELECT MAX("UPDATED_DATE") FROM {{ this }}))
+{% endif %}
