@@ -5,6 +5,8 @@
        materialized='incremental',
         unique_key='BRANCH_KEY',
         incremental_strategy='merge',
+         schema='silver_dbt',
+        alias='DIM_BRANCH',
         merge_update_columns=[
             'BRANCH_NAME', 'PARENT_BRANCH', 'ADDRESS_LINE_1',
             'CITY', 'STATE_CODE', 'ZIP', 'LATITUDE', 'LONGITUDE',

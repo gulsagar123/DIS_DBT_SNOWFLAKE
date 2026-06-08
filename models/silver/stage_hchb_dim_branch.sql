@@ -1,7 +1,7 @@
 {{
     config(
         schema        = 'silver_core_dbt',
-        alias         = 'STAGE_DIM_BRANCH',
+        alias         = 'STAGE_HCHB_DIM_BRANCH',
         materialized  = 'table',
         transient     = false,
         snowflake_warehouse = var('warehouse', target.warehouse)
